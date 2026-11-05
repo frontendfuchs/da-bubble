@@ -1,0 +1,37 @@
+@use './styles/variablen' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.app-body {
+  flex: 1;
+  display: flex;
+  gap: $layout-gap;
+  padding: 0 $layout-padding $layout-padding;
+  min-height: 0;
+}
+
+app-sidebar,
+app-chat,
+app-thread {
+  box-sizing: border-box;
+}
+
+app-sidebar {
+  width: $sidebar-width;
+  flex-shrink: 0;
+}
+
+app-chat {
+  flex: 1;
+  min-width: 0;
+}
+
+app-thread {
+  width: $thread-width;
+  flex-shrink: 0;
+}
