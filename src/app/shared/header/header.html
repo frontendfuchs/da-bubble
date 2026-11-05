@@ -1,1 +1,50 @@
-<p>header works!</p>
+<mat-toolbar class="header">
+  <a class="header__logo" routerLink="/" aria-label="DA Bubble Startseite">
+    <img class="header__logo-image" src="assets/img/da-bubble-icon.svg" alt="DA Bubble" />
+  </a>
+
+  <mat-form-field class="header__search" appearance="outline" subscriptSizing="dynamic">
+    <input
+      matInput
+      class="header__search-input"
+      type="search"
+      placeholder="Devspace durchsuchen"
+      aria-label="Devspace durchsuchen"
+    />
+    <mat-icon matSuffix class="header__search-icon">search</mat-icon>
+  </mat-form-field>
+
+  <button
+    mat-button
+    type="button"
+    class="header__profile"
+    [matMenuTriggerFor]="profileMenu"
+    disableRipple
+  >
+    <span class="header__profile-info">
+      <span class="header__profile-name">Frederik Beck</span>
+      <img
+        class="header__profile-avatar"
+        src="assets/avatar/frederik-beck-avatar.svg"
+        alt="Frederik Beck"
+      />
+    </span>
+    <mat-icon class="header__profile-arrow" iconPositionEnd>expand_more</mat-icon>
+  </button>
+
+  <mat-menu
+    #profileMenu="matMenu"
+    class="header__profile-menu"
+    backdropClass="header__profile-backdrop"
+    xPosition="before"
+  >
+    <button mat-menu-item type="button" class="header__profile-menu-item">Profil</button>
+    <button
+      mat-menu-item
+      type="button"
+      class="header__profile-menu-item header__profile-menu-item--logout"
+    >
+      Log out
+    </button>
+  </mat-menu>
+</mat-toolbar>
