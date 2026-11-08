@@ -1,1 +1,51 @@
-<p>sidebar works!</p>
+<header class="sidebar__header">
+    <div class="sidebar__logo">
+        <img class="sidebar__logo-image" src="assets/img/devspace-icon.svg" alt="" />
+    </div>
+    <h1 class="sidebar__title">Devspace</h1>
+    <button matIconButton class="sidebar__edit" type="button" aria-label="Workspace bearbeiten">
+        <mat-icon>edit_square</mat-icon>
+    </button>
+</header>
+
+<mat-tree #tree [dataSource]="dataSource" [childrenAccessor]="childrenAccessor">
+    <!-- This is the tree node template for leaf nodes -->
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click)="onLeafClick(node)"
+        [class.sidebar__leaf--action]="node.kind === 'add-channel'">
+        <div class="sidebar__row">
+            <!-- use a disabled button to provide padding for tree leaf -->
+            <button matIconButton disabled></button>
+            @if (node.kind === 'dm') {
+                <span class="sidebar__avatar-wrap">
+                    <img class="sidebar__avatar" [src]="node.avatar" [alt]="node.name" />
+                    @if (node.online) {
+                        <span class="sidebar__status"></span>
+                    }
+                </span>
+            } @else {
+                <mat-icon class="sidebar__leaf-icon">
+                    {{ node.kind === 'add-channel' ? 'add_circle_outline' : 'numbers' }}
+                </mat-icon>
+            }
+            <span class="sidebar__node-name">{{ node.name }}{{ node.isSelf ? ' (Du)' : '' }}</span>
+        </div>
+    </mat-tree-node>
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding matTreeNodeToggle
+        [cdkTreeNodeTypeaheadLabel]="node.name">
+        <button matIconButton matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror sidebar__toggle-icon">
+                {{ tree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
+            </mat-icon>
+        </button>
+        <mat-icon class="sidebar__node-icon">{{ node.icon }}</mat-icon>
+        <span class="sidebar__node-name">{{ node.name }}</span>
+        @if (node.canAdd) {
+            <button matIconButton class="sidebar__add" type="button"
+                [attr.aria-label]="'Add to ' + node.name"
+                (click)="$event.stopPropagation(); openAddChannelDialog()">
+                <mat-icon>add</mat-icon>
+            </button>
+        }
+    </mat-tree-node>
+</mat-tree>
