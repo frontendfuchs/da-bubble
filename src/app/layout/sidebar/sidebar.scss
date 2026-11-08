@@ -1,3 +1,5 @@
+@use '../../styles/variablen' as *;
+
 :host {
   display: block;
   height: 100%;
@@ -5,4 +7,110 @@
   border-radius: 24px;
   padding: 16px;
   overflow: auto;
+}
+
+.sidebar {
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  &__logo {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background:
+      linear-gradient(#0b0b3b, #0b0b3b) padding-box,
+      linear-gradient(135deg, #1381ff, #c444ff) border-box;
+  }
+
+  &__logo-image {
+    display: block;
+    width: 28px;
+    height: auto;
+  }
+
+  &__title {
+    margin: 0;
+    color: $color-text;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  &__edit {
+    flex-shrink: 0;
+    margin-left: auto;
+    color: $color-text;
+  }
+
+  &__edit,
+  &__add {
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+
+    &:hover,
+    &:focus-visible {
+      background-color: rgba($color-primary, 0.14);
+      color: $color-primary;
+    }
+  }
+
+  &__toggle-icon {
+    transition: color 150ms ease;
+  }
+
+  &__node-icon {
+    margin: 0 8px 0 4px;
+    transition: color 150ms ease;
+  }
+
+  &__leaf-icon {
+    margin: 0 8px 0 4px;
+    transition: color 150ms ease;
+  }
+
+  &__node-name {
+    flex: 1;
+    color: $color-text;
+    font-weight: 800;
+    transition: color 150ms ease;
+  }
+
+  &__add {
+    margin-left: auto;
+  }
+}
+
+mat-tree-node:hover:not(:has(.sidebar__add:hover)) {
+  .sidebar__toggle-icon,
+  .sidebar__node-icon,
+  .sidebar__leaf-icon,
+  .sidebar__node-name {
+    color: $color-primary;
+  }
+}
+
+.sidebar__row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-right: 8px;
+  border-radius: 24px;
+  transition: background-color 150ms ease;
+}
+
+mat-tree-node:not(.sidebar__leaf--action):hover .sidebar__row {
+  background-color: rgba($color-primary, 0.14);
+}
+
+.sidebar__leaf--action {
+  cursor: pointer;
 }
