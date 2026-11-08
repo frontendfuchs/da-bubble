@@ -5,9 +5,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { AddChannelDialog } from './add-channel-dialog/add-channel-dialog';
 
+type TreeNodeKind = 'section' | 'channel' | 'add-channel' | 'dm';
+
 interface TreeNode {
   name: string;
-  isAdd?: boolean;
+  kind: TreeNodeKind;
+  icon?: string;
+  canAdd?: boolean;
+  avatar?: string;
+  online?: boolean;
+  isSelf?: boolean;
   children?: TreeNode[];
 }
 
@@ -24,9 +31,26 @@ export class Sidebar {
   dataSource: TreeNode[] = [
     {
       name: 'Channels',
+      kind: 'section',
+      icon: 'workspaces',
+      canAdd: true,
       children: [
-        { name: 'Entwicklerteam' },
-        { name: 'Channel hinzufügen', isAdd: true },
+        { name: 'Entwicklerteam', kind: 'channel' },
+        { name: 'Channel hinzufügen', kind: 'add-channel' },
+      ],
+    },
+    {
+      name: 'Direktnachrichten',
+      kind: 'section',
+      icon: 'account_circle',
+      children: [
+        {
+          name: 'Frederik Beck',
+          kind: 'dm',
+          avatar: 'assets/avatar/frederik-beck-avatar.svg',
+          online: true,
+          isSelf: true,
+        },
       ],
     },
   ];
@@ -41,7 +65,7 @@ export class Sidebar {
   }
 
   onLeafClick(node: TreeNode): void {
-    if (node.isAdd) {
+    if (node.kind === 'add-channel') {
       this.openAddChannelDialog();
     }
   }
