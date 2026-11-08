@@ -9,9 +9,25 @@
 
 .app-body {
   flex: 1;
+  min-height: 0;
+  padding: 0 $layout-padding $layout-padding;
+}
+
+.app-drawer-container {
+  height: 100%;
+  background: transparent;
+}
+
+.app-drawer {
+  width: $sidebar-width;
+  border: 0;
+  background: transparent;
+}
+
+.app-content {
   display: flex;
   gap: $layout-gap;
-  padding: 0 $layout-padding $layout-padding;
+  padding-left: $layout-gap;
   min-height: 0;
 }
 
@@ -19,11 +35,6 @@ app-sidebar,
 app-chat,
 app-thread {
   box-sizing: border-box;
-}
-
-app-sidebar {
-  width: $sidebar-width;
-  flex-shrink: 0;
 }
 
 app-chat {
@@ -34,4 +45,37 @@ app-chat {
 app-thread {
   width: $thread-width;
   flex-shrink: 0;
+}
+
+.app-toggle {
+  position: fixed;
+  top: 70%;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 10px;
+  border: 1px solid rgba($color-primary, 0.15);
+  border-radius: 16px;
+  background: $color-surface;
+  color: $color-text;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: color 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: $color-primary;
+  }
+}
+
+.app-toggle__label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 18px;
+  font-weight: 700;
+  white-space: nowrap;
 }

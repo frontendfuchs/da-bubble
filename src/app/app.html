@@ -1,6 +1,25 @@
 <app-header />
+
 <div class="app-body">
-  <app-sidebar />
-  <app-chat />
-  <app-thread />
+  <mat-drawer-container class="app-drawer-container" autosize>
+    <mat-drawer #drawer class="app-drawer" mode="side" [opened]="true">
+      <app-sidebar />
+    </mat-drawer>
+
+    <mat-drawer-content class="app-content">
+      <app-chat />
+      <app-thread />
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>
+
+<button
+  type="button"
+  class="app-toggle"
+  (click)="drawer.toggle()"
+  [attr.aria-label]="drawer.opened ? 'Workspace-Menü schließen' : 'Workspace-Menü öffnen'">
+  <mat-icon>{{ drawer.opened ? 'left_panel_close' : 'left_panel_open' }}</mat-icon>
+  <span class="app-toggle__label">
+    {{ drawer.opened ? 'Workspace-Menü schließen' : 'Workspace-Menü öffnen' }}
+  </span>
+</button>
