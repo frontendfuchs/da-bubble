@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { AddChannelDialog } from './add-channel-dialog/add-channel-dialog';
+import { AddChannelDialog } from '../add-channel-dialog/add-channel-dialog';
+import { ContactService } from '../../core/contacts/contact.service';
 
 type TreeNodeKind = 'section' | 'channel' | 'add-channel' | 'dm';
 
@@ -26,34 +27,35 @@ interface TreeNode {
   templateUrl: './sidebar.html',
 })
 export class Sidebar {
-  private dialog = inject(MatDialog);
+  private readonly dialog = inject(MatDialog);
+  private readonly contactService = inject(ContactService);
 
-  dataSource: TreeNode[] = [
+  private readonly channels: TreeNode[] = [
+    { name: 'Entwicklerteam', kind: 'channel' },
+    { name: 'Channel hinzufügen', kind: 'add-channel' },
+  ];
+
+  readonly dataSource = computed<TreeNode[]>(() => [
     {
       name: 'Channels',
       kind: 'section',
       icon: 'workspaces',
       canAdd: true,
-      children: [
-        { name: 'Entwicklerteam', kind: 'channel' },
-        { name: 'Channel hinzufügen', kind: 'add-channel' },
-      ],
+      children: this.channels,
     },
     {
       name: 'Direktnachrichten',
       kind: 'section',
       icon: 'account_circle',
-      children: [
-        {
-          name: 'Frederik Beck',
-          kind: 'dm',
-          avatar: 'assets/avatar/frederik-beck-avatar.svg',
-          online: true,
-          isSelf: true,
-        },
-      ],
+      children: this.contactService.contacts().map((contact): TreeNode => ({
+        name: contact.name,
+        kind: 'dm',
+        avatar: contact.avatar || 'assets/avatar/default-avatar.svg',
+        online: contact.online,
+        isSelf: contact.isSelf,
+      })),
     },
-  ];
+  ]);
 
   childrenAccessor = (node: TreeNode) => node.children ?? [];
 

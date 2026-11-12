@@ -1,12 +1,17 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { App } from './app';
+import { ContactService } from './core/contacts/contact.service';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideRouter([])],
+      providers: [
+        provideRouter([]),
+        { provide: ContactService, useValue: { contacts: signal([]).asReadonly() } },
+      ],
     }).compileComponents();
   });
 
