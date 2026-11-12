@@ -8,7 +8,7 @@
     </button>
 </header>
 
-<mat-tree #tree [dataSource]="dataSource" [childrenAccessor]="childrenAccessor">
+<mat-tree #tree [dataSource]="dataSource()" [childrenAccessor]="childrenAccessor">
     <!-- This is the tree node template for leaf nodes -->
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click)="onLeafClick(node)"
         [class.sidebar__leaf--action]="node.kind === 'add-channel'">
@@ -24,7 +24,7 @@
                 </span>
             } @else {
                 <mat-icon class="sidebar__leaf-icon">
-                    {{ node.kind === 'add-channel' ? 'add_circle_outline' : 'numbers' }}
+                    {{ node.kind === 'add-channel' ? 'add_circle_outline' : (node.icon || 'numbers') }}
                 </mat-icon>
             }
             <span class="sidebar__node-name">{{ node.name }}{{ node.isSelf ? ' (Du)' : '' }}</span>
