@@ -63,7 +63,11 @@ export class Sidebar {
     !!node.children && node.children.length > 0;
 
   openAddChannelDialog(): void {
-    this.dialog.open(AddChannelDialog);
+    this.dialog.open(AddChannelDialog, {
+      width: '800px',
+      maxWidth: '90vw',
+      panelClass: 'channel-dialog',
+    });
   }
 
   onLeafClick(node: TreeNode): void {
