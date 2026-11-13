@@ -113,3 +113,7 @@ body {
     color: $color-primary;
   }
 }
+
+.channel-dialog .mat-mdc-dialog-surface {
+  border-radius: 30px;
+}
