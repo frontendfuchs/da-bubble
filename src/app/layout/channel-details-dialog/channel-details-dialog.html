@@ -1,0 +1,39 @@
+<div class="channel-details">
+    <header class="channel-details__header">
+        <div class="channel-details__title">
+            <span class="channel-details__hash">#</span>
+            <h2 class="channel-details__name">{{ channel.name }}</h2>
+        </div>
+        <button matIconButton type="button" class="channel-details__close" aria-label="Dialog schließen"
+            mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </header>
+
+    <section class="channel-details__card">
+        <div class="channel-details__card-head">
+            <h3 class="channel-details__label">Channel-Name</h3>
+            <button type="button" class="channel-details__edit">Bearbeiten</button>
+        </div>
+        <p class="channel-details__value">
+            <span class="channel-details__hash">#</span>{{ channel.name }}
+        </p>
+    </section>
+
+    <section class="channel-details__card">
+        <div class="channel-details__card-head">
+            <h3 class="channel-details__label">Beschreibung</h3>
+            <button type="button" class="channel-details__edit">Bearbeiten</button>
+        </div>
+        <p class="channel-details__description">{{ channel.description }}</p>
+        <hr class="channel-details__divider" />
+        <h3 class="channel-details__label">Erstellt von</h3>
+        <p class="channel-details__creator">{{ creatorName }}</p>
+    </section>
+
+    <footer class="channel-details__actions">
+        <button type="button" class="channel-details__leave" (click)="leaveChannel()">
+            Channel verlassen
+        </button>
+    </footer>
+</div>
