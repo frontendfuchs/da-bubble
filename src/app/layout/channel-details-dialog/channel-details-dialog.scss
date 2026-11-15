@@ -1,0 +1,106 @@
+@use '../../styles/variablen' as *;
+
+:host {
+    display: block;
+    padding: 32px;
+    color: $color-text;
+    font-family: $font-family;
+}
+
+.channel-details {
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    &__title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__name {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    &__hash {
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    &__card {
+        margin-bottom: 16px;
+        padding: 24px;
+        border: 1px solid #d9d6f2;
+        border-radius: 16px;
+    }
+
+    &__card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    &__label {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    &__edit {
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: $color-primary;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    &__value {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+    }
+
+    &__description {
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    &__divider {
+        margin: 16px 0;
+        border: 0;
+        border-top: 1px solid #d9d6f2;
+    }
+
+    &__creator {
+        margin: 8px 0 0;
+        color: $color-primary;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 8px;
+    }
+
+    &__leave {
+        padding: 12px 28px;
+        border: 0;
+        border-radius: 24px;
+        background: $color-button;
+        color: $color-surface;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+    }
+}
