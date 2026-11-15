@@ -2,7 +2,8 @@ import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { App } from './app';
-import { ContactService } from './core/contacts/contact.service';
+import { ContactService } from './core/services/contact.service';
+import { ChannelService } from './core/services/channel.service';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -11,6 +12,7 @@ describe('App', () => {
       providers: [
         provideRouter([]),
         { provide: ContactService, useValue: { contacts: signal([]).asReadonly() } },
+        { provide: ChannelService, useValue: { channels: signal([]).asReadonly() } },
       ],
     }).compileComponents();
   });
