@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import { App } from './app';
 import { ContactService } from './core/services/contact.service';
 import { ChannelService } from './core/services/channel.service';
+import { ActiveChatService } from './core/services/active-chat.service';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -13,6 +14,7 @@ describe('App', () => {
         provideRouter([]),
         { provide: ContactService, useValue: { contacts: signal([]).asReadonly() } },
         { provide: ChannelService, useValue: { channels: signal([]).asReadonly() } },
+        { provide: ActiveChatService, useValue: { active: signal(null).asReadonly() } },
       ],
     }).compileComponents();
   });
