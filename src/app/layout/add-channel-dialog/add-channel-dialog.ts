@@ -30,7 +30,7 @@ export class AddChannelDialog {
     const name = this.name().trim();
     if (!name) return;
     try {
-      await this.channelService.createChannel(name, this.description().trim());
+      await this.channelService.createChannel(name, this.description().trim(), 'Frederik Beck');
       this.dialogRef.close();
     } catch (error) {
       console.error('Creating channel failed', error);
