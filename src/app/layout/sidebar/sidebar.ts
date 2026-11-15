@@ -6,10 +6,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddChannelDialog } from '../add-channel-dialog/add-channel-dialog';
 import { ContactService } from '../../core/services/contact.service';
 import { ChannelService } from '../../core/services/channel.service';
+import { ActiveChatService } from '../../core/services/active-chat.service';
 
 type TreeNodeKind = 'section' | 'channel' | 'add-channel' | 'dm';
 
 interface TreeNode {
+  id?: string;
   name: string;
   kind: TreeNodeKind;
   icon?: string;
@@ -31,6 +33,7 @@ export class Sidebar {
   private readonly dialog = inject(MatDialog);
   private readonly contactService = inject(ContactService);
   private readonly channelService = inject(ChannelService);
+  private readonly activeChat = inject(ActiveChatService);
 
   readonly dataSource = computed<TreeNode[]>(() => [
     {
@@ -40,6 +43,7 @@ export class Sidebar {
       canAdd: true,
       children: [
         ...this.channelService.channels().map((channel): TreeNode => ({
+          id: channel.id,
           name: channel.name,
           kind: 'channel',
         })),
@@ -51,6 +55,7 @@ export class Sidebar {
       kind: 'section',
       icon: 'account_circle',
       children: this.contactService.contacts().map((contact): TreeNode => ({
+        id: contact.id,
         name: contact.name,
         kind: 'dm',
         avatar: contact.avatar || 'assets/avatar/default-avatar.svg',
@@ -76,6 +81,12 @@ export class Sidebar {
   onLeafClick(node: TreeNode): void {
     if (node.kind === 'add-channel') {
       this.openAddChannelDialog();
+      return;
+    }
+    if (node.kind === 'channel' && node.id) {
+      this.activeChat.selectChannel(node.id);
+    } else if (node.kind === 'dm' && node.id) {
+      this.activeChat.selectContact(node.id);
     }
   }
 }
