@@ -1,1 +1,71 @@
-<p>chat works!</p>
+@if (activeChannel(); as channel) {
+  <section class="chat">
+    <header class="chat__header">
+      <div class="chat__title">
+        <span class="chat__hash" aria-hidden="true">#</span>
+        <h2 class="chat__name">{{ channel.name }}</h2>
+        <mat-icon class="chat__chevron">expand_more</mat-icon>
+      </div>
+      <button
+        matIconButton
+        type="button"
+        class="chat__add-member"
+        aria-label="Mitglied hinzufügen"
+      >
+        <mat-icon>person_add</mat-icon>
+      </button>
+    </header>
+
+    <div class="chat__messages">
+      <p class="chat__empty">Noch keine Nachrichten. Starte die Unterhaltung!</p>
+    </div>
+
+    <footer class="chat__composer">
+      <input
+        class="chat__input"
+        type="text"
+        [placeholder]="'Nachricht an #' + channel.name"
+      />
+      <button matIconButton type="button" class="chat__send" aria-label="Nachricht senden">
+        <mat-icon>send</mat-icon>
+      </button>
+    </footer>
+  </section>
+} @else if (activeContact(); as contact) {
+  <section class="chat">
+    <header class="chat__header">
+      <div class="chat__title">
+        <span class="chat__avatar-wrap">
+          <img
+            class="chat__avatar"
+            [src]="contact.avatar || 'assets/avatar/default-avatar.svg'"
+            [alt]="contact.name"
+          />
+          @if (contact.online) {
+            <span class="chat__status"></span>
+          }
+        </span>
+        <h2 class="chat__name">{{ contact.name }}</h2>
+      </div>
+    </header>
+
+    <div class="chat__messages">
+      <p class="chat__empty">Noch keine Nachrichten. Starte die Unterhaltung!</p>
+    </div>
+
+    <footer class="chat__composer">
+      <input
+        class="chat__input"
+        type="text"
+        [placeholder]="'Nachricht an ' + contact.name"
+      />
+      <button matIconButton type="button" class="chat__send" aria-label="Nachricht senden">
+        <mat-icon>send</mat-icon>
+      </button>
+    </footer>
+  </section>
+} @else {
+  <div class="chat__empty-state">
+    <p>Wähle einen Channel oder eine Direktnachricht.</p>
+  </div>
+}
