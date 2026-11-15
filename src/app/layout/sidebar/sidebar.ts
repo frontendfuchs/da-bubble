@@ -4,7 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { AddChannelDialog } from '../add-channel-dialog/add-channel-dialog';
-import { ContactService } from '../../core/contacts/contact.service';
+import { ContactService } from '../../core/services/contact.service';
+import { ChannelService } from '../../core/services/channel.service';
 
 type TreeNodeKind = 'section' | 'channel' | 'add-channel' | 'dm';
 
@@ -29,11 +30,7 @@ interface TreeNode {
 export class Sidebar {
   private readonly dialog = inject(MatDialog);
   private readonly contactService = inject(ContactService);
-
-  private readonly channels: TreeNode[] = [
-    { name: 'Entwicklerteam', kind: 'channel' },
-    { name: 'Channel hinzufügen', kind: 'add-channel' },
-  ];
+  private readonly channelService = inject(ChannelService);
 
   readonly dataSource = computed<TreeNode[]>(() => [
     {
@@ -41,7 +38,13 @@ export class Sidebar {
       kind: 'section',
       icon: 'workspaces',
       canAdd: true,
-      children: this.channels,
+      children: [
+        ...this.channelService.channels().map((channel): TreeNode => ({
+          name: channel.name,
+          kind: 'channel',
+        })),
+        { name: 'Channel hinzufügen', kind: 'add-channel' },
+      ],
     },
     {
       name: 'Direktnachrichten',

@@ -1,13 +1,7 @@
 <div class="channel">
   <header class="channel__header">
     <h2 mat-dialog-title class="channel__title">Channel erstellen</h2>
-    <button
-      matIconButton
-      type="button"
-      class="channel__close"
-      aria-label="Dialog schließen"
-      mat-dialog-close
-    >
+    <button matIconButton type="button" class="channel__close" aria-label="Dialog schließen" mat-dialog-close>
       <mat-icon>close</mat-icon>
     </button>
   </header>
@@ -21,28 +15,22 @@
     <label class="channel__label" for="channel-name">Channel-Name</label>
     <div class="channel__field">
       <span class="channel__hash" aria-hidden="true">#</span>
-      <input
-        id="channel-name"
-        class="channel__input"
-        type="text"
-        placeholder="z.B. Kooperationsprojekte"
-      />
+      <input id="channel-name" class="channel__input" type="text" placeholder="z.B. Kooperationsprojekte"
+        [value]="name()" (input)="onNameInput($event)" />
+
     </div>
 
     <label class="channel__label" for="channel-description">
       Beschreibung <span class="channel__optional">(optional)</span>
     </label>
     <div class="channel__field">
-      <input
-        id="channel-description"
-        class="channel__input"
-        type="text"
-        placeholder="Dein Text hier"
-      />
+      <input id="channel-description" class="channel__input" type="text" placeholder="Dein Text hier"
+        [value]="description()" (input)="onDescriptionInput($event)" />
+
     </div>
 
     <div class="channel__actions">
-      <button class="channel__submit" type="button">Erstellen</button>
+      <button class="channel__submit" type="button" [disabled]="!canSubmit()" (click)="submit()">Erstellen</button>
     </div>
   </div>
 </div>
