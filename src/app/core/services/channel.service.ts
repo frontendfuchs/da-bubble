@@ -28,10 +28,15 @@ export class ChannelService {
         this.destroyRef.onDestroy(unsubscribe);
     }
 
-    async createChannel(name: string, description: string): Promise<void> {
+    async createChannel(
+        name: string,
+        description: string,
+        createdBy: string,
+    ): Promise<void> {
         await addDoc(collection(this.firestore, 'channels'), {
             name,
             description,
+            createdBy,
             createdAt: serverTimestamp(),
         });
     }
