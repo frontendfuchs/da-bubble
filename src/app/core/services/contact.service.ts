@@ -1,7 +1,7 @@
 import { DestroyRef, Injectable, inject, signal } from '@angular/core';
 import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 
-import { Contact } from './contact.model';
+import { Contact } from '../models/contact.model';
 
 @Injectable({
   providedIn: 'root',
